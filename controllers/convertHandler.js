@@ -2,7 +2,8 @@ function ConvertHandler() {
   
   this.getNum = function(input) {
     let result;
-    
+    console.log('huyyy', input);
+    result = input.replace(/[a-zA-Z]/g);
     return result;
   };
   
