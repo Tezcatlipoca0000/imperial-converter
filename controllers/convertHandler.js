@@ -1,10 +1,16 @@
 function ConvertHandler() {
   
   this.getNum = function(input) {
-    let result;
-    console.log('huyyy', input);
-    result = input.replace(/[a-zA-Z]/g);
-    return result;
+    let result,
+      valid = /^\d+\.{1}\d+$|^\d+\/{1}\d+$/g, 
+      invalid = /\D/g; 
+    result = input.replace(/[a-z]/gi, '');
+    if (!valid.test(result) && invalid.test(result)) {
+      result = 'Invalid Number';
+      return result;
+    } else {
+      return result;
+    }
   };
   
   this.getUnit = function(input) {

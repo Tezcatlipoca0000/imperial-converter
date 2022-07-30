@@ -9,11 +9,10 @@ module.exports = function (app) {
 
   app.route('/api/convert')
     .get((req, res) => {
-      console.log('the req obj', req);
       let input = req.query;
-      console.log('heyy', input);
-      let x = convertHandler.getNum(input.input);
-      console.log('onnnnn', x);
+      console.log('route get api/convert... user input ----', input);
+      let num = convertHandler.getNum(input.input);
+      console.log('route get api/convert... num', num);
     });
 
 };
