@@ -13,6 +13,7 @@ module.exports = function (app) {
       console.log('route get api/convert... user input ----', input);
       let num = convertHandler.getNum(input.input);
       console.log('route get api/convert... num', num);
+      let unit = convertHandler.getUnit(input.input);
     });
 
 };

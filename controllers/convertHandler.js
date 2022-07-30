@@ -5,6 +5,7 @@ function ConvertHandler() {
       valid = /^\d+\.{1}\d+$|^\d+\/{1}\d+$/g, 
       invalid = /\D/g; 
     result = input.replace(/[a-z]/gi, '');
+    if (result === '') result = '1';
     if (!valid.test(result) && invalid.test(result)) {
       result = 'Invalid Number';
       return result;
@@ -14,8 +15,17 @@ function ConvertHandler() {
   };
   
   this.getUnit = function(input) {
-    let result;
+    let result,
+      valid = /^gal$|^l$|^mi$|^km$|^lbs$|^kg$/gi,
+      num = /[\d+\.{1}\d+]|[\d+\/{1}\d+]|[\d+]/g;
+      //num = /^\d+$/g,
+      //dec = /^\d+\.{1}\d+$/g,
+      //frc = /^\d+\/{1}\d+$/g;
+    result = input.replace(num, '');
     
+    console.log('tst1', result);
+    result = result.match(valid);
+    console.log('heyyyy', result);
     return result;
   };
   
