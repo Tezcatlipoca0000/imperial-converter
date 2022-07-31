@@ -27,5 +27,4 @@ module.exports = function (app) {
         res.json({initNum: initNum, initUnit: initUnit, returnNum: returnNum, returnUnit: returnUnit, string: string});
       }
     });
-
 };

@@ -3,12 +3,7 @@ function ConvertHandler() {
   this.getNum = function(input) {
     let result,
       valid = /^\d*\.?\d+\/?\d*\.?\d+$|^\.\d+$/g,
-      // /^\d+\.{1}\d+$|^\d+\/{1}\d+$|^\d+\.{1}\d+\/{1}\d+$|^\d+\/{1}\d+\.{1}\d+/g, 
-      // /^\d*\.?\d+\/?\d+\.?\d+$/g,
       frc = /\//g,
-      // /^\d+\/{1}\d+$|^\d+\.{1}\d+\/{1}\d+$/g,
-      //dec = /[\d+\.{1}\d+]/g,
-      //num = /[\d+]/g,
       invalid = /\D/g; 
     result = input.replace(/[a-z]/gi, '');
     if (result === '') result = '1';
@@ -22,9 +17,8 @@ function ConvertHandler() {
     if (isNaN(result)) {
       result = 'invalid';
     } else {
-      result = Number(result);
+      result = Math.round(Number(result) * 100000) / 100000;
     }
-    result = Math.round(result * 100000) / 100000;
     return result;
   };
   
@@ -129,8 +123,7 @@ function ConvertHandler() {
   };
   
   this.getString = function(initNum, initUnit, returnNum, returnUnit) {
-    let result;
-    result = `${initNum} ${initUnit} converts to ${returnNum} ${returnUnit}`;
+    let result = `${initNum} ${initUnit} converts to ${returnNum} ${returnUnit}`;
     return result;
   };
   
