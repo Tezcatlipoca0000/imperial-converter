@@ -24,6 +24,7 @@ function ConvertHandler() {
     } else {
       result = Number(result);
     }
+    result = Math.round(result * 100000) / 100000;
     return result;
   };
   
@@ -123,7 +124,7 @@ function ConvertHandler() {
       default:
         break;
     }
-    console.log('tst1', result, typeof result, result.toString().length);
+    result = Math.round(result * 100000) / 100000;
     return result;
   };
   

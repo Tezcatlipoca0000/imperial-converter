@@ -17,7 +17,15 @@ module.exports = function (app) {
         returnUnitSO = convertHandler.spellOutUnit(returnUnit),
         returnNum = convertHandler.convert(initNum, initUnit),
         string = convertHandler.getString(initNum, initUnitSO, returnNum, returnUnitSO);
-      res.json({initNum: initNum, initUnit: initUnit, returnNum: returnNum, returnUnit: returnUnit, string: string});
+      if (isNaN(initNum) && initUnit === 'invalid') {
+        res.send('invalid number and unit');
+      } else if (isNaN(initNum) && initUnit !== 'invalid') {
+        res.send('invalid number');
+      } else if (!isNaN(initNum) && initUnit === 'invalid') {
+        res.send('invalid unit');
+      } else {
+        res.json({initNum: initNum, initUnit: initUnit, returnNum: returnNum, returnUnit: returnUnit, string: string});
+      }
     });
 
 };
