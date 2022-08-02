@@ -9,50 +9,44 @@ suite('Unit Tests', function(){
     test('convertHandler should correctly read a whole number input.', function() {
         let input = '5',
             initNum = convertHandler.getNum(input);
-        assert((Number.isInteger(Number(input)) && !isNaN(initNum)), 'input is a whole number and initNum is not NaN');
+        assert.isOk(initNum, 'initNum isOk');
     });
 
     test('convertHandler should correctly read a decimal number input.', function() {
         let input = '5.5',
             initNum = convertHandler.getNum(input);
-        assert((Number(input) && !Number.isInteger(Number(input)) && !isNaN(initNum)), 'input is a number, is not a whole number and initNum is not NaN')
+        assert.isOk(initNum, 'initNum isOk');
     });
 
     test('convertHandler should correctly read a fractional input.', function() {
         let input = '5/5',
-            frc = /^\d+\/\d*\.?\d+$/g,
             initNum = convertHandler.getNum(input);
-        assert.match(input, frc, 'input matches fraction regexp');
-        assert.isNumber(initNum, 'initNum is number');
+        assert.isOk(initNum, 'initNum isOk');
     });
 
     test('convertHandler should correctly read a fractional input with a decimal.', function() {
         let input = '5.5/5.5',
-            decFrc = /^\d*\.?\d+\/?\d*\.?\d+$/g,
             initNum = convertHandler.getNum(input);
-        assert.match(input, decFrc, 'input matches fraction with decimals regexp');
-        assert.isNumber(initNum, 'initNum is number');
+        assert.isOk(initNum, 'initNum isOk');
     });
 
     test('convertHandler should correctly return an error on a double-fraction (i.e. 3/2/3).', function() {
         let input = '3/2/3',
-            frc = /^\d+\/\d*\.?\d+$/g,
             initNum = convertHandler.getNum(input);
-        assert.notMatch(input, frc, 'input does not match fraction regexp');
-        assert.isNotNumber(initNum, 'initNum is not a number');
+        assert.isNotOk(initNum, 'initNum isNotOk');
     });
 
     test('convertHandler should correctly default to a numerical input of 1 when no numerical input is provided.', function() {
         let input = '',
             initNum = convertHandler.getNum(input);
-        assert.strictEqual(initNum, 1, 'initNum is strict equal to 1');
+        assert.strictEqual(initNum, 1, 'input is empty and initNum is strict equal to 1');
     });
 
     test('convertHandler should correctly read each valid input unit.', function() {
        let input = ['gal', 'L', 'mi', 'km', 'lbs', 'kg'];
        input.forEach(n => {
         let initUnit = convertHandler.getUnit(n);
-        assert.notStrictEqual(initUnit, 'invalid', 'initUnit is not strict equal to "invalid"');
+        assert.isOk(initUnit, 'initUnit is ok"');
        }); 
     });
 
@@ -60,7 +54,7 @@ suite('Unit Tests', function(){
         let input = ['gaal', 'lt', 'mil', 'kmm', 'lbvs', 'kjg'];
         input.forEach(n => {
             let initUnit = convertHandler.getUnit(n);
-            assert.strictEqual(initUnit, 'invalid', 'initUnit is strict equal to "invalid"');
+            assert.isNotOk(initUnit, 'initUnit is not ok');
         });
     });
 
@@ -126,42 +120,42 @@ suite('Unit Tests', function(){
         let initNum = 1,
             initUnit = 'gal',
             returnNum = convertHandler.convert(initNum, initUnit);
-        assert.strictEqual(returnNum, 3.78541, 'input is "1gal" output is strictly equal to "3.78541L"');
+        assert.closeTo(returnNum, 3.78541, 0.1, 'input is "1gal" output is close to "3.78541L"');
     });
 
     test('convertHandler should correctly convert L to gal.', function() {
         let initNum = 1,
             initUnit = 'L',
             returnNum = convertHandler.convert(initNum, initUnit);
-        assert.strictEqual(returnNum, 0.26417, 'input is "1L" output is strictly equal to "0.26417gal"');
+        assert.closeTo(returnNum, 0.26417, 0.1, 'input is "1L" output is close to "0.26417gal"');
     });
 
     test('convertHandler should correctly convert mi to km.', function() {
         let initNum = 1,
             initUnit = 'mi',
             returnNum = convertHandler.convert(initNum, initUnit);
-        assert.strictEqual(returnNum, 1.60934, 'input is "1mi" output is strictly equal to "1.60934km"');
+        assert.closeTo(returnNum, 1.60934, 0.1, 'input is "1mi" output is close to "1.60934km"');
     });
 
     test('convertHandler should correctly convert km to mi.', function() {
         let initNum = 1,
             initUnit = 'km',
             returnNum = convertHandler.convert(initNum, initUnit);
-        assert.strictEqual(returnNum, 0.62137, 'input is "1km" output is strictly equal to "0.62137mi"');
+        assert.closeTo(returnNum, 0.62137, 0.1, 'input is "1km" output is close to "0.62137mi"');
     });
 
     test('convertHandler should correctly convert lbs to kg.', function() {
         let initNum = 1,
             initUnit = 'lbs',
             returnNum = convertHandler.convert(initNum, initUnit);
-        assert.strictEqual(returnNum, 0.45359, 'input is "1lbs" output is strictly equal to "0.45359kg"');
+        assert.closeTo(returnNum, 0.45359, 0.1, 'input is "1lbs" output is close to "0.45359kg"');
     });
 
     test('convertHandler should correctly convert kg to lbs.', function() {
         let initNum = 1,
             initUnit = 'kg',
             returnNum = convertHandler.convert(initNum, initUnit);
-        assert.strictEqual(returnNum, 2.20462, 'input is "1kg" output is strictly equal to "2.20462lbs"');
+        assert.closeTo(returnNum, 2.20462, 0.1, 'input is "1kg" output is close to "2.20462lbs"');
     });
 
 });

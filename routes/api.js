@@ -17,11 +17,11 @@ module.exports = function (app) {
         returnUnitSO = convertHandler.spellOutUnit(returnUnit),
         returnNum = convertHandler.convert(initNum, initUnit),
         string = convertHandler.getString(initNum, initUnitSO, returnNum, returnUnitSO);
-      if (isNaN(initNum) && initUnit === 'invalid') {
+      if (isNaN(initNum) && initUnit === null) {
         res.send('invalid number and unit');
-      } else if (isNaN(initNum) && initUnit !== 'invalid') {
+      } else if (isNaN(initNum) && initUnit !== null) {
         res.send('invalid number');
-      } else if (!isNaN(initNum) && initUnit === 'invalid') {
+      } else if (!isNaN(initNum) && initUnit === null) {
         res.send('invalid unit');
       } else {
         res.json({initNum: initNum, initUnit: initUnit, returnNum: returnNum, returnUnit: returnUnit, string: string});

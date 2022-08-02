@@ -15,7 +15,7 @@ function ConvertHandler() {
       result = Number(x) / Number(y);
     }
     if (isNaN(result)) {
-      result = 'invalid';
+      result = NaN;
     } else {
       result = Math.round(Number(result) * 100000) / 100000;
     }
@@ -28,9 +28,7 @@ function ConvertHandler() {
       num = /[\d*\.{1}\d+]|[\d+\/{1}\d+]|[\d+]/g;
     result = input.replace(num, '');
     result = result.match(valid);
-    if (result === null) {
-      result = 'invalid';
-    } else {
+    if (result !== null) {
       result = result[0].toLowerCase();
     }
     if (result === 'l') result = result.toUpperCase();
